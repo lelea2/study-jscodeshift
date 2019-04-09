@@ -1,0 +1,22 @@
+{
+  "name": "study-jscodeshift",
+  "version": "1.0.0",
+  "description": "study jscodeshift",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lelea2/study-jscodeshift.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lelea2/study-jscodeshift/issues"
+  },
+  "homepage": "https://github.com/lelea2/study-jscodeshift#readme",
+  "dependencies": {
+    "jscodeshift": "^0.6.3"
+  }
+}
