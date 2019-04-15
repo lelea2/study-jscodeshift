@@ -14,6 +14,14 @@ mockServer.mapRecord(
   })
 );
 
+mockServer.mapRecord(
+  endpointMap.organizationPromotions,
+  this.companyId,
+  {
+    'elements.0.widget': 'contentsuggestionswidget',
+    'elements.0.legoTrackingToken': 'abc123'
+  }
+);
 
 mockServer.mapRecord(
   endpointMap.organizationCompanies,

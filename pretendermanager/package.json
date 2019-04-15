@@ -1,5 +1,5 @@
 {
-  "name": "migrate-mockserver-to-pretendermanager",
+  "name": "pretendermanager",
   "version": "0.1.0",
   "scripts": {
     "test": "codemod-cli test",

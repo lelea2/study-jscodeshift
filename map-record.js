@@ -28,15 +28,6 @@ export default (fileInfo, api) => {
     .get(0)
     // get the Node in the NodePath and grab its &quot;name&quot;
     .node.name;
-
-  // console.log('>>>localName', localName);
-
-  // const argKeys = [
-  //   'path',
-  //   'uri',
-  //   'mock'
-  // ];
-
   function generateRecipes(node1) {
     // console.log(node);
     return j.objectExpression([
@@ -52,20 +43,6 @@ export default (fileInfo, api) => {
     ]);
   }
 
-  root.find(j.CallExpression, {
-    callee: {
-      property: {
-        name: 'createCompanyWithAdminAccess'
-      }
-    }
-  })
-  .replaceWith(nodePath1 => {
-    console.log('>>>>> test argggggg');
-    console.log(nodePath1);
-  });
-
-  // Need to tranfrom the object first
-  const argToReplace = null;
   root.find(j.MemberExpression, {
     object: {
       type: '',
@@ -73,18 +50,18 @@ export default (fileInfo, api) => {
     }
   })
 
-  root.find(j.MemberExpression, {
-    object: {
-      type: 'Identifier',
-      name: 'endpointMap'
-    },
-    property: {
-      type: 'Identifier',
-      name: 'organizationCompanies'
-    }
-  }).replaceWith(nodePath => {
-    return j.literal('/voyager/api/organization/companies/');
-  });
+  // root.find(j.MemberExpression, {
+  //   object: {
+  //     type: 'Identifier',
+  //     name: 'endpointMap'
+  //   },
+  //   property: {
+  //     type: 'Identifier',
+  //     name: 'organizationCompanies'
+  //   }
+  // }).replaceWith(nodePath => {
+  //   return j.literal('/voyager/api/organization/companies/');
+  // });
   // return root.toSource();
   root.find(j.CallExpression, {
     callee: {
@@ -101,52 +78,25 @@ export default (fileInfo, api) => {
     const arg0 = node.arguments[0];
     const arg1 = node.arguments[1];
     let arg2 = node.arguments[2];
-    if (arg2.type === 'CallExpression') {
-      console.log('>>>Parsinggg');
-      root.find(j.CallExpression, {
-        callee: {
-          type: 'Identifier',
-          name: 'createCompanyWithAdminAccess'
-        }
-      })
-      .replaceWith(nodePath1 => {
-        console.log('>>>>> test');
-        console.log(nodePath1.node.arguments.length);
-        arg2 = nodePath1.node.arguments[0];
-      });
-    }
-    // do something with path
-    // const argumentsAsObject = node.arguments.map((arg, i) => {
-    //   if (arg.type === 'MemberExpression') {
-    //     return j.property(
-    //       'init',
-    //       j.identifier(argKeys[i]),
-    //       arg
-    //     );
-    //   } else if (arg.type === 'CallExpression') {
-    //     return j.property(
-    //       'init',
-    //       j.identifier(argKeys[i]),
-    //       arg
-    //     );
-    //   } else {
-    //     return j.property(
-    //       'init',
-    //       j.identifier(argKeys[i]),
-    //       j.literal(arg.value)
-    //     );
-    //   }
-    // });
-
-    // replace the arguments with our new ObjectExpression
-    // console.log(argumentsAsObject);
+    // if (arg2.type === 'CallExpression') {
+    //   root.find(j.CallExpression, {
+    //     callee: {
+    //       type: 'Identifier',
+    //       name: 'createCompanyWithAdminAccess'
+    //     }
+    //   })
+    //   .replaceWith(nodePath1 => {
+    //     arg2 = nodePath1.node.arguments[0];
+    //   });
+    // }
+    const newArg = j.binaryExpression('+', arg0, arg1);
 
     node.arguments = [
       j.literal('get'),
       j.callExpression(
         j.identifier('addQueryParams'),
         [
-          j.binaryExpression('+', arg0, arg1),
+          newArg,
           generateRecipes(arg0)
         ]
       ),
@@ -188,30 +138,3 @@ export default (fileInfo, api) => {
 
   return root.toSource({ quote: 'single', trailingComma: true });
 };
-
-
-// companyIndustries: [],
-// entityUrn: this.companyUrn,
-// followingInfo: PDSCMocker.create('common/following-info').with({
-//   following: false,
-//   followerCount: 100,
-// }),
-
-
-// root.find(j.CallExpression, {
-//   callee: {
-//     type: 'MemberExpression',
-//     object: {
-//       name: localName,
-//     },
-//     property: {
-//       name: 'create',
-//     },
-//   }
-// }).replaceWith(nodePath => {
-//   node.property.name = 'create';
-//   node.object.name = 'mockServer';
-//   node.arguments = [
-//     transformModelString(node.arguments[0])
-//   ]
-// });

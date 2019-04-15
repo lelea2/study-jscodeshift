@@ -30,3 +30,5 @@ const truck = car.factory({
 ./node_modules/.bin/jscodeshift -t method-call-deprecated.js inputs/deprecated-input.js -d -p
 
 ./node_modules/.bin/jscodeshift -t map-record.js inputs/map-record-input.js -d -p
+
+./node_modules/.bin/jscodeshift -t map-record-new.js inputs/map-record-input.js -d -p
